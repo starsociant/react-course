@@ -1,33 +1,38 @@
-import TaskList from "./TaskList/TaskList";
-import { TaskListProps } from "./TaskList/TaskList";
+import { Filters, Modal, PokemonsList, Search } from "./components";
 
 function App() {
-  const props: TaskListProps = {
-    owner: "Saulo",
-    tasks: [
-      {
-        description: "Add changes",
-        done: true,
-      },
-      {
-        description: "Commit",
-        done: false,
-      },
-      {
-        description: "Push",
-        done: false,
-      },
-      {
-        description: "Push",
-        done: false,
-      },
-    ],
-  };
-
+  const pokemons = [
+    {
+      name: "Pichu",
+    },
+    {
+      name: "Pikachu",
+    },
+    {
+      name: "Raichu",
+    },
+    {
+      name: "Raichu",
+    },
+    {
+      name: "Raichu",
+    },
+    {
+      name: "Raichu",
+    },
+    {
+      name: "Raichu",
+    },
+  ];
   return (
-    <div className="App">
-      <TaskList {...props} />
-    </div>
+    <main>
+      <div>
+        <Search />
+        <Filters />
+      </div>
+      <PokemonsList items={pokemons} />
+      <Modal />
+    </main>
   );
 }
 

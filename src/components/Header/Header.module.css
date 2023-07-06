@@ -1,0 +1,36 @@
+.Header {
+  background-color: #3c5aa6;
+  color: #fff;
+  margin-bottom: 5rem;
+}
+
+.Container {
+  padding: 0 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.Nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.Nav li + li {
+  margin-left: 1rem;
+}
+
+.Nav li a {
+  color: var(--white);
+  display: inline-block;
+  padding: 1rem 0 calc(1rem - 3px);
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.Nav li a:hover {
+  color: var(--secondary);
+  border-bottom-color: var(--secondary);
+}

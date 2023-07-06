@@ -1,3 +1,31 @@
+@import-normalize;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@font-face {
+  font-family: PokemonSolid;
+  src: url(./assets/fonts/pokemon-solid.ttf) format("truetype");
+}
+
+:root {
+  --primary: #3c5aa6;
+  --secondary: #ffcb05;
+  --light-blue: #2a75bb;
+  --dark-yellow: #c7a008;
+  --white: #fff;
+  --black: #000;
+  --light: #fafafa;
+  --dark: #282828;
+}
+
 body {
   margin: 0;
+  background-color: #fafafa;
+  font-family: Roboto, sans-serif;
+}
+
+.font-pokemon {
+  font-family: PokemonSolid;
+}
+
+a {
+  text-decoration: none;
 }
