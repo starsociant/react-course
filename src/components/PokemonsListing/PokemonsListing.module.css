@@ -1,0 +1,21 @@
+.H1 {
+  text-align: center;
+  color: var(--secondary);
+  font-size: clamp(3.75rem, 7.5vw, 8rem);
+  -webkit-text-stroke: 4px var(--primary);
+  letter-spacing: 0.35rem;
+}
+
+.Container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, min-content));
+  gap: 1rem;
+  max-width: 1920px;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.ContainerItem {
+  background: var(--primary);
+}

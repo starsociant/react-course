@@ -1,0 +1,42 @@
+.Header {
+  background-color: var(--primary);
+}
+
+.Container {
+  padding: 0 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.Nav ul li + li {
+  margin-left: 1rem;
+}
+
+.Nav ul li a {
+  color: var(--white);
+  padding: 1rem 0;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.Nav ul li a:hover {
+  color: var(--secondary);
+  border-bottom-color: var(--secondary);
+}
+
+.LoginWrapper a {
+  color: var(--white);
+  font-weight: 500;
+}
