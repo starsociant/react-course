@@ -35,3 +35,31 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.type.type--bug {
+  background-color: #8bd674;
+}
+
+.type.type--electric {
+  background-color: #f2cb55;
+}
+
+.type.type--fire {
+  background-color: #ff9448;
+}
+
+.type.type--flying {
+  background-color: #829edb;
+}
+
+.type.type--grass {
+  background-color: #8bbe8a;
+}
+
+.type.type--poison {
+  background-color: #bd5fe9;
+}
+
+.type.type--water {
+  background-color: #58abf6;
+}

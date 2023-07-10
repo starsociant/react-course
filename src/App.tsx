@@ -1,36 +1,7 @@
 import { PokemonsListing } from "./components";
+import pokemons from "./pokemons.json";
 
 function App() {
-  const pokemons = [
-    {
-      name: "Pichu",
-      types: ["Eletric"],
-    },
-    {
-      name: "Pikachu",
-      types: ["Eletric"],
-    },
-    {
-      name: "Raichu",
-      types: ["Eletric"],
-    },
-    {
-      name: "Raichu",
-      types: ["Eletric"],
-    },
-    {
-      name: "Raichu",
-      types: ["Eletric"],
-    },
-    {
-      name: "Raichu",
-      types: ["Eletric"],
-    },
-    {
-      name: "Raichu",
-      types: ["Eletric"],
-    },
-  ];
   return (
     <main>
       <PokemonsListing items={pokemons} />

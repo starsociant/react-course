@@ -1,3 +1,5 @@
-.Header {
-  background-color: var(--secondary);
+.Footer {
+  text-align: center;
+  padding: 1rem;
+  opacity: 0.5;
 }

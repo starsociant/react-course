@@ -8,14 +8,55 @@
 
 .Container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, min-content));
+  grid-template-columns: repeat(auto-fit, minmax(320px, auto));
+  grid-auto-columns: max-content;
   gap: 1rem;
   max-width: 1920px;
   margin: 0 auto;
-  justify-content: space-between;
   padding: 0 1rem;
 }
 
 .ContainerItem {
-  background: var(--primary);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.ContainerItem .Canvas {
+  position: relative;
+  z-index: 1;
+}
+
+.ContainerItem::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.ContainerItem .H4 {
+  margin: 0 0 0.5rem;
+  text-transform: capitalize;
+}
+
+.ContainerItem .TypesList {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ContainerItem .TypesList li {
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+.ContainerItem img {
+  max-height: 200px;
+  display: block;
+  margin: -65px -15px -50px auto;
 }
