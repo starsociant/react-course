@@ -36,6 +36,10 @@ ul {
   padding: 0;
 }
 
+.type.type--none {
+  background-color: #333;
+}
+
 .type.type--bug {
   background-color: #8bd674;
 }
