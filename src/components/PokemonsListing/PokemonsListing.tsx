@@ -17,7 +17,7 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
       return;
     }
 
-    setPokemons(pokemons.filter(({ name }) => name.includes(search)));
+    setPokemons(pokemons.filter(pokemon => pokemon.name.includes(search)));
   }, [pokemons, search]);
 
   console.log(Date.now());
