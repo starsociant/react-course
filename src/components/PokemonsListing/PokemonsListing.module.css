@@ -53,6 +53,8 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   font-size: 80%;
+  font-family: monospace;
+  font-weight: 600;
 }
 
 .ContainerItem img {

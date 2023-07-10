@@ -1,0 +1,14 @@
+.Search {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.Search input {
+  padding: 0.5rem 1.5rem;
+  border-radius: 3rem;
+  border: 1px solid #0002;
+  font-size: 150%;
+  outline: 0;
+  color: var(--dark);
+  background: 95% center/26px url(../../assets/images/search-icon.png) no-repeat var(--white);
+}
