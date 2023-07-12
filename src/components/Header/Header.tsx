@@ -1,10 +1,10 @@
 import styles from "./Header.module.css";
 
 export interface HeaderProps {
-  userName: string;
+  userName?: string;
 }
 
-export default function Header() {
+export default function Header({ userName }: HeaderProps) {
   return (
     <header className={styles.Header}>
       <div className={styles.Container}>
@@ -19,7 +19,7 @@ export default function Header() {
           </ul>
         </nav>
         <div className={styles.LoginWrapper}>
-          <a href="#">Login</a>
+          {userName ? `Olá, ${userName}!` : <a href="#">Login</a>}
         </div>
       </div>
     </header>

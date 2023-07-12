@@ -1,8 +1,10 @@
-import { useState } from "react";
 import styles from "./Search.module.css";
 
-export default function Search({ handleChange }: any) {
+interface SearchProps {
+  handleChange: (p: string) => void;
+}
 
+export default function Search({ handleChange }: SearchProps) {
   return (
     <div className={styles.Search}>
       <input

@@ -1,30 +1,37 @@
 import { useEffect, useState } from "react";
+import { Pokemon as PokemonInterface } from "pokenode-ts";
 import { Filter, Search } from "..";
-import PokemonListItem, { PokemonInterface } from "./PokemonListItem";
+import PokemonListItem from "./PokemonListItem";
 import styles from "./PokemonsListing.module.css";
 
 interface PokemonsListingProps {
   items: PokemonInterface[];
 }
 
+// pokemon -> tipos[] -> tipo -> nome
+const extractTypesFromPokemonList = (
+  pokemons: PokemonInterface[]
+): string[] => {
+  const pokemonTypes = pokemons.map(({ types }) => types).flat();
+  return [...new Set(pokemonTypes.map(({ type }) => type.name))];
+};
+
 export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
-  const types = [...new Set(items.map((i) => i.types).flat())];
+  const types = extractTypesFromPokemonList(items);
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    setPokemons(items)
+  }, [items])
 
   useEffect(() => {
     if (!search) {
       return;
     }
 
-    setPokemons(pokemons.filter(pokemon => pokemon.name.includes(search)));
+    setPokemons(pokemons.filter((pokemon) => pokemon.name.includes(search)));
   }, [pokemons, search]);
-
-  console.log(Date.now());
-
-  useEffect(() => {
-    console.log(Date.now());
-  });
 
   const filter = (type: string) => {
     if (!type) {
@@ -32,7 +39,11 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
       return;
     }
 
-    setPokemons(items.filter((pokemon) => pokemon.types.includes(type)));
+    setPokemons(
+      items.filter((pokemon) =>
+        pokemon.types.map(({ type }) => type.name).includes(type)
+      )
+    );
   };
 
   return (
