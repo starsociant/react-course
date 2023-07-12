@@ -11,36 +11,38 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const types = [...new Set(items.map((i) => i.types).flat())];
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    if (!search) {
-      return;
+  const handleFilter = (type: string) => {
+    if (type === '') {
+      return setPokemons(items.filter(pokemon => pokemon.name.includes(search.toLowerCase())));
     }
 
-    setPokemons(pokemons.filter(pokemon => pokemon.name.includes(search)));
-  }, [pokemons, search]);
-
-  console.log(Date.now());
-
-  useEffect(() => {
-    console.log(Date.now());
-  });
-
-  const filter = (type: string) => {
-    if (!type) {
-      setPokemons(items);
-      return;
-    }
-
-    setPokemons(items.filter((pokemon) => pokemon.types.includes(type)));
+    setFilter(type);
+    setPokemons(items.filter(pokemon => pokemon.name.includes(search.toLowerCase())).filter((pokemon) => pokemon.types.includes(type)));
   };
+
+  const handleSearch = (e: any) => {
+    setSearch(e);
+
+    if (filter.length <= 0) {
+      return setPokemons(items.filter(pokemon => pokemon.name.includes(e.toLowerCase())));
+    }
+
+    if (e.length > 0) {
+      return setPokemons(items.filter((pokemon) => pokemon.types.includes(filter)).filter(pokemon => pokemon.name.includes(e.toLowerCase())));
+    }
+
+    setSearch('');
+    setPokemons(items.filter((pokemon) => pokemon.types.includes(filter)));
+  }
 
   return (
     <section>
       <h1 className={`font-pokemon ${styles.H1}`}>Pokédex</h1>
       <div>
-        <Filter items={types} handleClick={filter} />
-        <Search handleChange={setSearch} />
+        <Filter items={types} handleClick={handleFilter} />
+        <Search handleChange={handleSearch} />
       </div>
       <div className={styles.Container}>
         {pokemons.map((pokemon, i) => (
