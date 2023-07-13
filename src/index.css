@@ -67,3 +67,7 @@ ul {
 .type.type--water {
   background-color: #58abf6;
 }
+
+.type.type--normal {
+  background-color: #777777;
+}
