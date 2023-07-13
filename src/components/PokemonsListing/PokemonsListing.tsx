@@ -22,12 +22,15 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const [search, setSearch] = useState("");
 
   // Recuperar a lista de favoritos
+  let favorites: string[] = JSON.parse(
+    window.localStorage.getItem("favorites") ?? "[]"
+  );
   // Verificar se o pokemon está na lista
   // Exibir propriamente o botão de fav/unfav
 
   useEffect(() => {
-    setPokemons(items)
-  }, [items])
+    setPokemons(items);
+  }, [items]);
 
   useEffect(() => {
     if (!search) {
@@ -58,9 +61,16 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
         <Search handleChange={setSearch} />
       </div>
       <div className={styles.Container}>
-        {pokemons.map((pokemon, i) => (
-          <PokemonListItem {...pokemon} key={`pokemonslist-item-${i}`} />
-        ))}
+        {pokemons.map((pokemon, i) => {
+          const isFav = favorites.includes(pokemon.name);
+          return (
+            <PokemonListItem
+              {...pokemon}
+              key={`pokemonslist-item-${i}`}
+              isFav={isFav}
+            />
+          );
+        })}
       </div>
     </section>
   );

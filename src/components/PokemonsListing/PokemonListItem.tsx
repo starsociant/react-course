@@ -2,11 +2,16 @@ import { Pokemon as PokemonInterface } from "pokenode-ts";
 import styles from "./PokemonsListing.module.css";
 import star from "../../assets/icons/star.svg";
 
+export interface PokemonItemProps extends PokemonInterface {
+  isFav: boolean;
+}
+
 export default function PokemonListItem({
   name,
   types,
   sprites,
-}: PokemonInterface) {
+  isFav,
+}: PokemonItemProps) {
   const [primaryType] = types;
 
   return (
@@ -23,7 +28,7 @@ export default function PokemonListItem({
           ))}
         </ul>
         <button>
-          {/* <img src={star} alt="" /> */}
+          {isFav && <img src={star} alt="" />}
           fav
         </button>
         <img
