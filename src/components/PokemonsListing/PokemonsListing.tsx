@@ -21,6 +21,10 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
   const [search, setSearch] = useState("");
 
+  // Recuperar a lista de favoritos
+  // Verificar se o pokemon está na lista
+  // Exibir propriamente o botão de fav/unfav
+
   useEffect(() => {
     setPokemons(items)
   }, [items])
