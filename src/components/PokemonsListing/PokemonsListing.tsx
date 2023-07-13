@@ -20,11 +20,11 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const types = extractTypesFromPokemonList(items);
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
   const [search, setSearch] = useState("");
+  const [favorites, setFavorites] = useState(JSON.parse(
+    window.localStorage.getItem("favorites") ?? "[]"
+  ));
 
   // Recuperar a lista de favoritos
-  let favorites: string[] = JSON.parse(
-    window.localStorage.getItem("favorites") ?? "[]"
-  );
   // Verificar se o pokemon está na lista
   // Exibir propriamente o botão de fav/unfav
 
@@ -53,6 +53,13 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
     );
   };
 
+  const handleFavorite = (name: string) => {
+    const unix = new Set(favorites);
+    unix.add(name);
+    window.localStorage.setItem("favorites", JSON.stringify(Array.from(unix)));
+    setFavorites(Array.from(unix));
+  }
+
   return (
     <section>
       <h1 className={`font-pokemon ${styles.H1}`}>Pokédex</h1>
@@ -68,6 +75,7 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
               {...pokemon}
               key={`pokemonslist-item-${i}`}
               isFav={isFav}
+              handleFavorite={handleFavorite}
             />
           );
         })}

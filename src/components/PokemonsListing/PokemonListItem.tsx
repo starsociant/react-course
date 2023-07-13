@@ -1,9 +1,11 @@
 import { Pokemon as PokemonInterface } from "pokenode-ts";
 import styles from "./PokemonsListing.module.css";
-import star from "../../assets/icons/star.svg";
+import StarIcon from "../../assets/icons/star.png";
+import StarFilledIcon from "../../assets/icons/filled-star.png";
 
 export interface PokemonItemProps extends PokemonInterface {
   isFav: boolean;
+  handleFavorite: (name: string) => void;
 }
 
 export default function PokemonListItem({
@@ -11,6 +13,7 @@ export default function PokemonListItem({
   types,
   sprites,
   isFav,
+  handleFavorite,
 }: PokemonItemProps) {
   const [primaryType] = types;
 
@@ -27,11 +30,14 @@ export default function PokemonListItem({
             </li>
           ))}
         </ul>
-        <button>
-          {isFav && <img src={star} alt="" />}
-          fav
+        <button
+          className={styles.FavButton}
+          onClick={() => handleFavorite(name)}
+        >
+          <img src={isFav ? StarFilledIcon : StarIcon} alt="Fav Icon" /> :
         </button>
         <img
+          className={styles.PokemonAvatar}
           src={sprites.other?.["official-artwork"].front_default!}
           alt={name}
         />

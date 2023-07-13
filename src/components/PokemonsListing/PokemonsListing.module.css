@@ -57,12 +57,22 @@
   font-weight: 600;
 }
 
-.ContainerItem img {
+.ContainerItem .PokemonAvatar {
   max-height: 200px;
   display: block;
   margin: -65px -15px -50px auto;
 }
 
-.FavButton {
+.ContainerItem .FavButton {
+  background: none;
+  border: none;
+  padding: 0;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+}
 
+.ContainerItem .FavButton img {
+  width: 32px;
+  height: 32px;
 }
