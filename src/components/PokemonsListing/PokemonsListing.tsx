@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pokemon as PokemonInterface } from "pokenode-ts";
-import { Filter, Search } from "..";
+import { PokemonModal, Filter, Search } from "..";
 import PokemonListItem from "./PokemonListItem";
 import styles from "./PokemonsListing.module.css";
 
@@ -20,13 +20,11 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const types = extractTypesFromPokemonList(items);
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
   const [search, setSearch] = useState("");
-  const [favorites, setFavorites] = useState(JSON.parse(
-    window.localStorage.getItem("favorites") ?? "[]"
-  ));
-
-  // Recuperar a lista de favoritos
-  // Verificar se o pokemon está na lista
-  // Exibir propriamente o botão de fav/unfav
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonInterface>();
+  const [isPokemonModalOpen, setIsPokemonModalOpen] = useState(false);
+  const [favorites, setFavorites] = useState(
+    JSON.parse(window.localStorage.getItem("favorites") ?? "[]")
+  );
 
   useEffect(() => {
     setPokemons(items);
@@ -53,12 +51,19 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
     );
   };
 
-  const handleFavorite = (name: string) => {
+  const handleFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, name: string) => {
+    e.stopPropagation();
+
     const unix = new Set(favorites);
     unix.add(name);
     window.localStorage.setItem("favorites", JSON.stringify(Array.from(unix)));
     setFavorites(Array.from(unix));
-  }
+  };
+
+  const viewPokemon = (pokemon: PokemonInterface) => {
+    setSelectedPokemon(pokemon);
+    setIsPokemonModalOpen(true);
+  };
 
   return (
     <section>
@@ -76,10 +81,16 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
               key={`pokemonslist-item-${i}`}
               isFav={isFav}
               handleFavorite={handleFavorite}
+              handleClick={viewPokemon}
             />
           );
         })}
       </div>
+      <PokemonModal
+        name={selectedPokemon?.name || ""}
+        isOpen={isPokemonModalOpen}
+        handleClose={() => setIsPokemonModalOpen(false)}
+      />
     </section>
   );
 }

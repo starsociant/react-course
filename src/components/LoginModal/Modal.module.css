@@ -1,0 +1,42 @@
+.ModalHeader {
+  margin: 0 -20px 20px;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ModalHeader h4 {
+  margin: 0;
+}
+
+.ModalHeader button {
+  background: none;
+  border: 0;
+  font-size: 150%;
+}
+
+.Form .FormGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form .FormGroup + .FormGroup {
+  margin-top: 1rem;
+}
+
+.Form .FormGroup input {
+  border: 0;
+  border-bottom: 1px solid #bbb;
+  padding: 1rem;
+}
+
+.Form .FormGroup button[type="submit"] {
+  background-color: var(--primary);
+  border: #bbb;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+}

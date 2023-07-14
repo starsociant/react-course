@@ -36,7 +36,9 @@
   border-bottom-color: var(--secondary);
 }
 
-.LoginWrapper {
+.LoginWrapper .LoginButton {
+  background: none;
+  border: 0;
   color: var(--white);
-  font-weight: 500;
+  font-weight: 600;
 }

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { LoginModal } from "../LoginModal";
 import styles from "./Header.module.css";
 
 export interface HeaderProps {
@@ -5,6 +7,8 @@ export interface HeaderProps {
 }
 
 export default function Header({ userName }: HeaderProps) {
+  const [isLoginModalOpen, setModalLoginOpen] = useState(false);
+
   return (
     <header className={styles.Header}>
       <div className={styles.Container}>
@@ -19,9 +23,17 @@ export default function Header({ userName }: HeaderProps) {
           </ul>
         </nav>
         <div className={styles.LoginWrapper}>
-          {userName ? `Olá, ${userName}!` : <a href="#">Login</a>}
+          {userName ? (
+            `Olá, ${userName}!`
+          ) : (
+            <button className={styles.LoginButton} onClick={() => setModalLoginOpen(true)}>Login</button>
+          )}
         </div>
       </div>
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        handleClose={() => setModalLoginOpen(false)}
+      />
     </header>
   );
 }

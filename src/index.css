@@ -1,5 +1,5 @@
 @import-normalize;
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600;700;900&display=swap");
 @font-face {
   font-family: PokemonSolid;
   src: url(./assets/fonts/pokemon-solid.ttf) format("truetype");
@@ -28,6 +28,11 @@ body {
 
 a {
   text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-size: 100%;
 }
 
 ul {
@@ -69,5 +74,5 @@ ul {
 }
 
 .type.type--normal {
-  background-color: #eee;
+  background-color: #888;
 }

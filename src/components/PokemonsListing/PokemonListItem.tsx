@@ -5,21 +5,18 @@ import StarFilledIcon from "../../assets/icons/filled-star.png";
 
 export interface PokemonItemProps extends PokemonInterface {
   isFav: boolean;
-  handleFavorite: (name: string) => void;
+  handleFavorite: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, name: string) => void;
+  handleClick: (pokemon: PokemonInterface) => void;
 }
 
-export default function PokemonListItem({
-  name,
-  types,
-  sprites,
-  isFav,
-  handleFavorite,
-}: PokemonItemProps) {
+export default function PokemonListItem(props: PokemonItemProps) {
+  const { name, types, sprites, isFav, handleFavorite, handleClick } = props;
   const [primaryType] = types;
 
   return (
     <div
       className={`${styles.ContainerItem} type type--${primaryType.type.name}`}
+      onClick={() => handleClick(props)}
     >
       <div className={styles.Canvas}>
         <h4 className={styles.H4}>{name}</h4>
@@ -32,7 +29,7 @@ export default function PokemonListItem({
         </ul>
         <button
           className={styles.FavButton}
-          onClick={() => handleFavorite(name)}
+          onClick={(event) => handleFavorite(event, name)}
         >
           <img src={isFav ? StarFilledIcon : StarIcon} alt="Fav Icon" /> :
         </button>
