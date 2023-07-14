@@ -3,6 +3,7 @@ import { Pokemon as PokemonInterface } from "pokenode-ts";
 import { PokemonModal, Filter, Search } from "..";
 import PokemonListItem from "./PokemonListItem";
 import styles from "./PokemonsListing.module.css";
+import { useLocalStorage } from "../../hooks";
 
 interface PokemonsListingProps {
   items: PokemonInterface[];
@@ -22,9 +23,7 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const [search, setSearch] = useState("");
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonInterface>();
   const [isPokemonModalOpen, setIsPokemonModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState(
-    JSON.parse(window.localStorage.getItem("favorites") ?? "[]")
-  );
+  const [favorites, setFavorites] = useLocalStorage('favorites');
 
   useEffect(() => {
     setPokemons(items);
@@ -74,7 +73,7 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
       </div>
       <div className={styles.Container}>
         {pokemons.map((pokemon, i) => {
-          const isFav = favorites.includes(pokemon.name);
+          const isFav = (favorites || []).includes(pokemon.name);
           return (
             <PokemonListItem
               {...pokemon}

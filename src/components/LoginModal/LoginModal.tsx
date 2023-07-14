@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import Modal from "react-modal";
+import { useLocalStorage } from "../../hooks";
 import styles from "./Modal.module.css";
 
 export interface LoginModalProps {
@@ -10,6 +12,22 @@ export default function PokemonModal({
   handleClose,
   isOpen = false,
 }: LoginModalProps) {
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passRef = useRef<HTMLInputElement>(null);
+  const [user, setUser] = useLocalStorage("user");
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const name = nameRef.current?.value;
+    const email = emailRef.current?.value;
+    setUser({
+      name,
+      email,
+    });
+    handleClose()
+  };
+
   return (
     <div>
       <Modal
@@ -20,7 +38,7 @@ export default function PokemonModal({
           content: {
             maxWidth: 500,
             margin: "auto",
-            bottom: 'unset'
+            bottom: "unset",
           },
         }}
         isOpen={isOpen}
@@ -31,15 +49,33 @@ export default function PokemonModal({
           <button onClick={handleClose}>&times;</button>
         </div>
         <div className={styles.ModalBody}>
-          <form className={styles.Form}>
+          <form className={styles.Form} onSubmit={handleSubmit}>
             <div className={styles.FormGroup}>
-              <input type="text" name="name" placeholder="Name" />
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                ref={nameRef}
+                required
+              />
             </div>
             <div className={styles.FormGroup}>
-              <input type="email" name="email" placeholder="Email" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+                ref={emailRef}
+              />
             </div>
             <div className={styles.FormGroup}>
-              <input type="password" name="password" placeholder="Password" />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                ref={passRef}
+                required
+              />
             </div>
             <div className={styles.FormGroup}>
               <button type="submit">JOIN</button>

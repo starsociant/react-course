@@ -32,7 +32,7 @@
   padding: 1rem;
 }
 
-.Form .FormGroup button[type="submit"] {
+.Form .FormGroup button {
   background-color: var(--primary);
   border: #bbb;
   color: #fff;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "../../hooks";
 import { LoginModal } from "../LoginModal";
 import styles from "./Header.module.css";
 
@@ -8,6 +9,7 @@ export interface HeaderProps {
 
 export default function Header({ userName }: HeaderProps) {
   const [isLoginModalOpen, setModalLoginOpen] = useState(false);
+  const [user, setUser] = useLocalStorage("user");
 
   return (
     <header className={styles.Header}>
@@ -23,8 +25,8 @@ export default function Header({ userName }: HeaderProps) {
           </ul>
         </nav>
         <div className={styles.LoginWrapper}>
-          {userName ? (
-            `Olá, ${userName}!`
+          {user?.name ? (
+            `Olá, ${user?.name}!`
           ) : (
             <button className={styles.LoginButton} onClick={() => setModalLoginOpen(true)}>Login</button>
           )}
