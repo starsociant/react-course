@@ -34,7 +34,7 @@ export default function PokemonListItem({
           className={styles.FavButton}
           onClick={() => handleFavorite(name)}
         >
-          <img src={isFav ? StarFilledIcon : StarIcon} alt="Fav Icon" /> :
+          <img src={isFav ? StarFilledIcon : StarIcon} alt="Fav Icon" />
         </button>
         <img
           className={styles.PokemonAvatar}
