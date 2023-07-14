@@ -20,41 +20,51 @@ const extractTypesFromPokemonList = (
 export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const types = extractTypesFromPokemonList(items);
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
+  const [typeStates, setTypeStates] = useState(
+    types.reduce((obj: any[string], item) => {
+      obj[item] = 'off';
+      return obj;
+    }, {})
+  );
   const [search, setSearch] = useState("");
+
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonInterface>();
   const [isPokemonModalOpen, setIsPokemonModalOpen] = useState(false);
-  const [favorites, setFavorites] = useLocalStorage('favorites');
+  const [favorites, setFavorites] = useState(JSON.parse(
+    window.localStorage.getItem("favorites") ?? "[]"
+  ));
+
 
   useEffect(() => {
     setPokemons(items);
   }, [items]);
 
   useEffect(() => {
-    if (!search) {
-      return;
-    }
+    update()
+  }, [search]);
 
-    setPokemons(pokemons.filter((pokemon) => pokemon.name.includes(search)));
-  }, [pokemons, search]);
-
-  const filter = (type: string) => {
-    if (!type) {
-      setPokemons(items);
-      return;
-    }
-
+  const update = () => {
+    const activeFilters = types.filter((name) => typeStates[name] === 'on');
+    console.log(activeFilters)
     setPokemons(
       items.filter((pokemon) =>
-        pokemon.types.map(({ type }) => type.name).includes(type)
+        activeFilters.every((name) => pokemon.types.map(({ type }) => type.name).includes(name)) &&
+        pokemon.name.includes(search.toLowerCase())
       )
     );
-  };
+  }
+
+  const filterClick = (type: string) => {
+    typeStates[type] = typeStates[type] == 'on' ? 'off' : 'on';
+    setTypeStates(typeStates);
+    update()
+  }
 
   const handleFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, name: string) => {
     e.stopPropagation();
 
     const unix = new Set(favorites);
-    unix.add(name);
+    unix.has(name) ? unix.delete(name) : unix.add(name);
     window.localStorage.setItem("favorites", JSON.stringify(Array.from(unix)));
     setFavorites(Array.from(unix));
   };
@@ -68,7 +78,7 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
     <section>
       <h1 className={`font-pokemon ${styles.H1}`}>Pokédex</h1>
       <div>
-        <Filter items={types} handleClick={filter} />
+        <Filter items={types} handleClick={filterClick} typeStates={typeStates} />
         <Search handleChange={setSearch} />
       </div>
       <div className={styles.Container}>

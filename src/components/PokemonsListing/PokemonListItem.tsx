@@ -31,7 +31,7 @@ export default function PokemonListItem(props: PokemonItemProps) {
           className={styles.FavButton}
           onClick={(event) => handleFavorite(event, name)}
         >
-          <img src={isFav ? StarFilledIcon : StarIcon} alt="Fav Icon" /> :
+          <img src={isFav ? StarFilledIcon : StarIcon} alt="Fav Icon" />
         </button>
         <img
           className={styles.PokemonAvatar}
