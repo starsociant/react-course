@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import Modal from "react-modal";
 import { useLocalStorage } from "../../hooks";
 import styles from "./Modal.module.css";
+import { AuthContext } from "../../context";
 
 export interface LoginModalProps {
   isOpen: boolean;
@@ -16,6 +17,7 @@ export default function PokemonModal({
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
   const [user, setUser] = useLocalStorage("user");
+  const authContext = useContext(AuthContext);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -25,7 +27,11 @@ export default function PokemonModal({
       name,
       email,
     });
-    handleClose()
+    authContext?.setUser({
+      name,
+      email,
+    });
+    handleClose();
   };
 
   return (

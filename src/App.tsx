@@ -1,9 +1,19 @@
-import { PokemonClient, Pokemon as PokemonInterface } from "pokenode-ts";
 import { useEffect, useState } from "react";
-import { PokemonsListing } from "./components";
+import { PokemonClient, Pokemon as PokemonInterface } from "pokenode-ts";
+import { Header, PokemonsListing } from "./components";
+import { AuthContext } from "./context";
+import { UserType } from "./context/AuthContext";
+import { useLocalStorage } from "./hooks";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokemonInterface[]>([]);
+  const [userFromStorage] = useLocalStorage("user");
+  const [user, setUser] = useState<UserType>();
+
+  useEffect(() => {
+    setUser(userFromStorage);
+  }, [userFromStorage]);
+
   useEffect(() => {
     const api = new PokemonClient({
       cacheOptions: { ttl: 1000 * 60 * 60 * 24 },
@@ -16,9 +26,14 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <PokemonsListing items={pokemons} />
-    </main>
+    <>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <Header />
+        <main>
+          <PokemonsListing items={pokemons} />
+        </main>
+      </AuthContext.Provider>
+    </>
   );
 }
 
