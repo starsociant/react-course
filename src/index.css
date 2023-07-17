@@ -36,38 +36,70 @@ ul {
   padding: 0;
 }
 
-.type.type--none {
-  background-color: #333;
-}
-
 .type.type--bug {
   background-color: #8bd674;
+}
+
+.type.type--bug.active {
+  background-color: #476d3b;
 }
 
 .type.type--electric {
   background-color: #f2cb55;
 }
 
+.type.type--electric.active {
+  background-color: #977f35;
+}
+
 .type.type--fire {
   background-color: #ff9448;
+}
+
+.type.type--fire.active {
+  background-color: #8d5127;
 }
 
 .type.type--flying {
   background-color: #829edb;
 }
 
+.type.type--flying.active {
+  background-color: #475575;
+}
+
 .type.type--grass {
   background-color: #8bbe8a;
+}
+
+.type.type--grass.active {
+  background-color: #475f46;
 }
 
 .type.type--poison {
   background-color: #bd5fe9;
 }
 
+.type.type--poison.active {
+  background-color: #603175;
+}
+
 .type.type--water {
   background-color: #58abf6;
 }
 
+.type.type--water.active {
+  background-color: #2e5a81;
+}
+
 .type.type--normal {
   background-color: #eee;
+}
+
+.type.type--normal.active {
+  background-color: #9b9b9b;
+}
+
+.active {
+  color:#858585
 }
