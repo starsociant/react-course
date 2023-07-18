@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../redux/user/actions";
+import { logout } from "../../redux/user/reducer";
 import { LoginModal } from "../LoginModal";
 import styles from "./Header.module.css";
 
@@ -10,11 +10,11 @@ export interface HeaderProps {
 
 export default function Header({ userName }: HeaderProps) {
   const [isLoginModalOpen, setModalLoginOpen] = useState(false);
-  const { user } = useSelector((state: any) => state.userReducer);
+  const { user } = useSelector((state: any) => state.users);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logout());
   };
 
   return (

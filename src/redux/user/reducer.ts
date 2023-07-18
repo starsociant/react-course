@@ -1,29 +1,23 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { UserActions, UserInterface } from "./types";
 
 const initialState: { user: UserInterface | null } = {
   user: null,
 };
 
-export default function userReducer(
-  state = initialState,
-  action: {
-    type: UserActions;
-    payload?: UserInterface;
-  }
-) {
-  if (action.type === UserActions.Login) {
-    return {
-      ...state,
-      user: action.payload,
-    };
-  }
+const userReducer = createSlice({
+  name: "users",
+  initialState,
+  reducers: {
+    login(state, action) {
+      state.user = action.payload;
+    },
+    logout(state) {
+      state.user = null;
+    },
+  },
+});
 
-  if (action.type === UserActions.Logout) {
-    return {
-      ...state,
-      user: null,
-    };
-  }
+export const { login, logout } = userReducer.actions;
 
-  return state;
-}
+export default userReducer.reducer;

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import Modal from "react-modal";
 import styles from "./Modal.module.css";
-import { loginUser } from "../../redux/user/actions";
+import { login } from "../../redux/user/reducer";
 
 export interface LoginModalProps {
   isOpen: boolean;
@@ -22,7 +22,7 @@ export default function PokemonModal({
     e.preventDefault();
     const name = nameRef.current?.value!;
     const email = emailRef.current?.value!;
-    dispatch(loginUser({ name, email }));
+    dispatch(login({ name, email }));
     handleClose();
   };
 

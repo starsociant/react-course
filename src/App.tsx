@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { PokemonClient, Pokemon as PokemonInterface } from "pokenode-ts";
 import { PokemonsListing } from "./components";
+import { useLocalStorage } from "./hooks";
+import { useDispatch } from "react-redux";
+import { login } from "./redux/user/reducer";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokemonInterface[]>([]);
+  const [user] = useLocalStorage('user');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const api = new PokemonClient({
@@ -15,6 +20,10 @@ function App() {
       );
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(login(user))
+  }, [dispatch, user])
 
   return (
     <>
