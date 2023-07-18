@@ -1,7 +1,5 @@
 import { Pokemon as PokemonInterface } from "pokenode-ts";
-import { useContext } from "react";
 import Modal from "react-modal";
-import { AuthContext } from "../../context";
 
 export interface PokemonModalProps extends Pick<PokemonInterface, "name"> {
   isOpen: boolean;
@@ -13,8 +11,6 @@ export default function PokemonModal({
   handleClose,
   isOpen = false,
 }: PokemonModalProps) {
-  const authContext = useContext(AuthContext);
-
   return (
     <div>
       <Modal
@@ -28,7 +24,6 @@ export default function PokemonModal({
       >
         <h2>{name}</h2>
         <button onClick={handleClose}>close</button>
-        {authContext?.user?.name ? `Olá, ${authContext?.user?.name}!` : null}
       </Modal>
     </div>
   );

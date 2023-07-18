@@ -1,8 +1,8 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import Modal from "react-modal";
-import { useLocalStorage } from "../../hooks";
 import styles from "./Modal.module.css";
-import { AuthContext } from "../../context";
+import { loginUser } from "../../redux/user/actions";
 
 export interface LoginModalProps {
   isOpen: boolean;
@@ -16,21 +16,13 @@ export default function PokemonModal({
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
-  const [user, setUser] = useLocalStorage("user");
-  const authContext = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const name = nameRef.current?.value;
-    const email = emailRef.current?.value;
-    setUser({
-      name,
-      email,
-    });
-    authContext?.setUser({
-      name,
-      email,
-    });
+    const name = nameRef.current?.value!;
+    const email = emailRef.current?.value!;
+    dispatch(loginUser({ name, email }));
     handleClose();
   };
 

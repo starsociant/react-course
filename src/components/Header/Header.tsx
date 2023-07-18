@@ -1,5 +1,6 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/user/actions";
 import { LoginModal } from "../LoginModal";
 import styles from "./Header.module.css";
 
@@ -9,7 +10,12 @@ export interface HeaderProps {
 
 export default function Header({ userName }: HeaderProps) {
   const [isLoginModalOpen, setModalLoginOpen] = useState(false);
-  const authContext = useContext(AuthContext);
+  const { user } = useSelector((state: any) => state.userReducer);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <header className={styles.Header}>
@@ -25,8 +31,11 @@ export default function Header({ userName }: HeaderProps) {
           </ul>
         </nav>
         <div className={styles.LoginWrapper}>
-          {authContext?.user?.name ? (
-            `Olá, ${authContext?.user?.name}!`
+          {user ? (
+            <>
+              <span>Olá {user.name}</span>
+              <small onClick={handleLogout}>sair</small>
+            </>
           ) : (
             <button
               className={styles.LoginButton}
