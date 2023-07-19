@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { PokemonClient, Pokemon as PokemonInterface } from "pokenode-ts";
-import { PokemonsListing } from "./components";
-import { useLocalStorage } from "./hooks";
 import { useDispatch } from "react-redux";
-import { login } from "./redux/user/reducer";
+import { Footer, Header, PokemonsListing } from "../components";
+import { useLocalStorage } from "../hooks";
+import { login } from "../redux/user/reducer";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokemonInterface[]>([]);
-  const [user] = useLocalStorage('user');
+  const [user] = useLocalStorage("user");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,14 +22,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(login(user))
-  }, [dispatch, user])
+    dispatch(login(user));
+  }, [dispatch, user]);
 
   return (
     <>
+      <Header />
       <main>
         <PokemonsListing items={pokemons} />
       </main>
+      <Footer />
     </>
   );
 }

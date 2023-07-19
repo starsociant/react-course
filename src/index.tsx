@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import App from "./App";
-import { Footer, Header } from "./components";
-import "./index.css";
 import store from "./redux/store";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
+import "./index.css";
 
 const rootElement: HTMLElement = document.getElementById("root")!;
 const root = ReactDOM.createRoot(rootElement);
@@ -12,9 +12,7 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Header />
-      <App />
-      <Footer />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );

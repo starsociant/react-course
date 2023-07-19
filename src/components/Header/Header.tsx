@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { logout } from "../../redux/user/reducer";
 import { LoginModal } from "../LoginModal";
 import styles from "./Header.module.css";
@@ -23,10 +24,10 @@ export default function Header({ userName }: HeaderProps) {
         <nav className={styles.Nav}>
           <ul>
             <li>
-              <a href="#">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="#">Types</a>
+              <Link to="/types">Types</Link>
             </li>
           </ul>
         </nav>
