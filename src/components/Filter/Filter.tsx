@@ -6,12 +6,18 @@ export interface FiltersProps {
   typeStates: any;
 }
 
-export default function Filters({ items, handleClick, typeStates }: FiltersProps) {
+export default function Filters({
+  items,
+  handleClick,
+  typeStates,
+}: FiltersProps) {
   return (
     <div className={styles.Filters}>
       {items.map((type) => (
         <button
-          className={`${styles.Button} type type--${type} ${typeStates[type] == 'on' ? 'active' : ''}`}
+          className={`${styles.Button} type type--${type} ${
+            typeStates[type] === "on" ? "active" : ""
+          }`}
           onClick={() => handleClick(type)}
           key={`filter-${type}`}
         >

@@ -1,25 +1,18 @@
-import { useEffect, useState } from "react";
-import { PokemonClient, Pokemon as PokemonInterface } from "pokenode-ts";
+import { useEffect } from "react";
+import { Pokemon as PokemonInterface } from "pokenode-ts";
 import { useDispatch } from "react-redux";
 import { Footer, Header, PokemonsListing } from "../components";
-import { useLocalStorage } from "../hooks";
+import { useLocalStorage, useApi } from "../hooks";
 import { login } from "../redux/user/reducer";
 
-function App() {
-  const [pokemons, setPokemons] = useState<PokemonInterface[]>([]);
+export default function Home() {
   const [user] = useLocalStorage("user");
   const dispatch = useDispatch();
+  const { isLoading, data: pokemonData, error, fetch } = useApi();
 
   useEffect(() => {
-    const api = new PokemonClient({
-      cacheOptions: { ttl: 1000 * 60 * 60 * 24 },
-    });
-    api.listPokemons().then(({ results }) => {
-      Promise.all(results.map(({ name }) => api.getPokemonByName(name))).then(
-        (data) => setPokemons(data)
-      );
-    });
-  }, []);
+    fetch.listPokemons();
+  }, [fetch]);
 
   useEffect(() => {
     dispatch(login(user));
@@ -29,11 +22,15 @@ function App() {
     <>
       <Header />
       <main>
-        <PokemonsListing items={pokemons} />
+        {isLoading ? (
+          <div>The api is loading.</div>
+        ) : error ? (
+          <div>Error: "{error}" ocurred during the api call.</div>
+        ) : (
+          <PokemonsListing items={pokemonData as PokemonInterface[]} />
+        )}
       </main>
       <Footer />
     </>
   );
 }
-
-export default App;

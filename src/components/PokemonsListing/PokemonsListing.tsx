@@ -22,7 +22,7 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
   const [pokemons, setPokemons] = useState<PokemonInterface[]>(items);
   const [typeStates, setTypeStates] = useState(
     types.reduce((obj: any[string], item) => {
-      obj[item] = 'off';
+      obj[item] = "off";
       return obj;
     }, {})
   );
@@ -30,37 +30,41 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
 
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonInterface>();
   const [isPokemonModalOpen, setIsPokemonModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState(JSON.parse(
-    window.localStorage.getItem("favorites") ?? "[]"
-  ));
-
+  const [favorites, setFavorites] = useState(
+    JSON.parse(window.localStorage.getItem("favorites") ?? "[]")
+  );
 
   useEffect(() => {
     setPokemons(items);
   }, [items]);
 
   useEffect(() => {
-    update()
+    update();
   }, [search]);
 
   const update = () => {
-    const activeFilters = types.filter((name) => typeStates[name] === 'on');
-    console.log(activeFilters)
+    const activeFilters = types.filter((name) => typeStates[name] === "on");
+    console.log(activeFilters);
     setPokemons(
-      items.filter((pokemon) =>
-        activeFilters.every((name) => pokemon.types.map(({ type }) => type.name).includes(name)) &&
-        pokemon.name.includes(search.toLowerCase())
+      items.filter(
+        (pokemon) =>
+          activeFilters.every((name) =>
+            pokemon.types.map(({ type }) => type.name).includes(name)
+          ) && pokemon.name.includes(search.toLowerCase())
       )
     );
-  }
+  };
 
   const filterClick = (type: string) => {
-    typeStates[type] = typeStates[type] == 'on' ? 'off' : 'on';
+    typeStates[type] = typeStates[type] === "on" ? "off" : "on";
     setTypeStates(typeStates);
-    update()
-  }
+    update();
+  };
 
-  const handleFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, name: string) => {
+  const handleFavorite = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    name: string
+  ) => {
     e.stopPropagation();
 
     const unix = new Set(favorites);
@@ -78,7 +82,11 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
     <section>
       <h1 className={`font-pokemon ${styles.H1}`}>Pokédex</h1>
       <div>
-        <Filter items={types} handleClick={filterClick} typeStates={typeStates} />
+        <Filter
+          items={types}
+          handleClick={filterClick}
+          typeStates={typeStates}
+        />
         <Search handleChange={setSearch} />
       </div>
       <div className={styles.Container}>
