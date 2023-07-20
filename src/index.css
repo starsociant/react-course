@@ -41,10 +41,6 @@ ul {
   padding: 0;
 }
 
-.type.type--none {
-  background-color: #333;
-}
-
 .type.type--bug {
   background-color: #8bd674;
 }
@@ -75,4 +71,16 @@ ul {
 
 .type.type--normal {
   background-color: #888;
+}
+
+.active {
+  outline: 2px solid #3c5aa6;
+  border-color: transparent;
+}
+
+.active::before {
+  content: '\2714 \fe0e';
+  float: left;
+  width: 22px;
+  margin-left: -22px;
 }

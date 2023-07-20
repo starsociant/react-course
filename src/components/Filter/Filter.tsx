@@ -3,20 +3,15 @@ import styles from "./Filter.module.css";
 export interface FiltersProps {
   items: string[];
   handleClick: (p: string) => void;
+  typeStates: any;
 }
 
-export default function Filters({ items, handleClick }: FiltersProps) {
+export default function Filters({ items, handleClick, typeStates }: FiltersProps) {
   return (
     <div className={styles.Filters}>
-      <button
-        className={`${styles.Button} type type--none`}
-        onClick={() => handleClick("")}
-      >
-        All
-      </button>
       {items.map((type) => (
         <button
-          className={`${styles.Button} type type--${type}`}
+          className={`${styles.Button} type type--${type} ${typeStates[type] == 'on' ? 'active' : ''}`}
           onClick={() => handleClick(type)}
           key={`filter-${type}`}
         >
