@@ -1,13 +1,14 @@
 import { Pokemon as PokemonInterface } from "pokenode-ts";
 import Modal from "react-modal";
 
-export interface PokemonModalProps extends Pick<PokemonInterface, "name"> {
+export interface PokemonModalProps {
+  pokemon: PokemonInterface;
   isOpen: boolean;
   handleClose: () => void;
 }
 
 export default function PokemonModal({
-  name,
+  pokemon,
   handleClose,
   isOpen = false,
 }: PokemonModalProps) {
@@ -22,7 +23,18 @@ export default function PokemonModal({
         isOpen={isOpen}
         contentLabel="Pokemon Modal"
       >
-        <h2>{name}</h2>
+        <h2>{pokemon.name}</h2>
+        <ul>
+          {pokemon.types.map(({ type }, idx) => (
+            <li className={`type type--${type.name}`} key={idx}>
+              {type.name}
+            </li>
+          ))}
+        </ul>
+        <img
+          src={pokemon.sprites.other?.["official-artwork"].front_default!}
+          alt={pokemon.name}
+        />
         <button onClick={handleClose}>close</button>
       </Modal>
     </div>

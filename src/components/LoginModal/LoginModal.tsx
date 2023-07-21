@@ -20,10 +20,18 @@ export default function PokemonModal({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const name = nameRef.current?.value!;
-    const email = emailRef.current?.value!;
+    const name = nameRef.current?.value;
+    handleEntry(name, "Name");
+    const email = emailRef.current?.value;
+    handleEntry(email, "Email");
     dispatch(login({ name, email }));
     handleClose();
+  };
+
+  const handleEntry = (entry: string | undefined, type: string) => {
+    if (entry === undefined || !entry.length) {
+      throw new Error(`Please enter a valid "${type}"`);
+    }
   };
 
   return (

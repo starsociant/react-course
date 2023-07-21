@@ -1,13 +1,9 @@
 import { useState, useCallback, useMemo } from "react";
-import {
-  PokemonClient,
-  Pokemon as PokemonInterface,
-  NamedAPIResource,
-} from "pokenode-ts";
+import { PokemonClient, NamedAPIResource } from "pokenode-ts";
 
 export default function useAPI() {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<PokemonInterface[] | NamedAPIResource[]>([]);
+  const [data, setData] = useState<NamedAPIResource[]>([]);
   const [error, setError] = useState("");
   const api = useMemo(
     () =>
@@ -23,12 +19,8 @@ export default function useAPI() {
       api
         .listPokemons()
         .then(({ results }) => {
-          Promise.all(
-            results.map(({ name }) => api.getPokemonByName(name))
-          ).then((data) => {
-            setData(data);
-            setIsLoading(false);
-          });
+          setData(results);
+          setIsLoading(false);
         })
         .catch((error) => setError(error.message));
     }, [api]),

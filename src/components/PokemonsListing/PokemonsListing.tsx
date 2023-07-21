@@ -44,7 +44,6 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
 
   const update = () => {
     const activeFilters = types.filter((name) => typeStates[name] === "on");
-    console.log(activeFilters);
     setPokemons(
       items.filter(
         (pokemon) =>
@@ -103,11 +102,13 @@ export default function PokemonsListing({ items = [] }: PokemonsListingProps) {
           );
         })}
       </div>
-      <PokemonModal
-        name={selectedPokemon?.name || ""}
-        isOpen={isPokemonModalOpen}
-        handleClose={() => setIsPokemonModalOpen(false)}
-      />
+      {selectedPokemon && (
+        <PokemonModal
+          pokemon={selectedPokemon}
+          isOpen={isPokemonModalOpen}
+          handleClose={() => setIsPokemonModalOpen(false)}
+        />
+      )}
     </section>
   );
 }
